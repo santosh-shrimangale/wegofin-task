@@ -9,6 +9,7 @@ const carousel = document.querySelector('.carousel');
 const carouselInner = document.querySelector('.carousel-inner');
 const slides = document.querySelectorAll('.carousel-inner .card');
 const totalSlides = slides.length;
+const slideWidth = slides[0].offsetWidth; // Assuming all cards have the same width
 
 carousel.addEventListener('mousedown', touchStart);
 carousel.addEventListener('mousemove', touchMove);
@@ -32,6 +33,7 @@ function touchMove(event) {
   const touch = event.type === 'touchmove' ? event.touches[0] : event;
   const currentPosition = touch.clientX;
   currentTranslate = prevTranslate + currentPosition - startX;
+  setSliderPosition();
 }
 
 function touchEnd() {
@@ -39,10 +41,9 @@ function touchEnd() {
   isDragging = false;
   const movedBy = currentTranslate - prevTranslate;
 
-  if (movedBy < -100 && currentIndex < totalSlides - 1) {
+  if (movedBy < -slideWidth / 2 && currentIndex < totalSlides - 1) {
     currentIndex += 1;
-  }
-  if (movedBy > 100 && currentIndex > 0) {
+  } else if (movedBy > slideWidth / 2 && currentIndex > 0) {
     currentIndex -= 1;
   }
 
@@ -51,7 +52,7 @@ function touchEnd() {
 }
 
 function setPositionByIndex() {
-  currentTranslate = currentIndex * -carousel.offsetWidth / 3;
+  currentTranslate = currentIndex * -slideWidth;
   prevTranslate = currentTranslate;
   setSliderPosition();
 }
