@@ -8,28 +8,28 @@ body {
   margin: 0;
 }
 h1 {
-  font-size: 65px;
+  font-size: 5vw;
   color: #ffffff;
   margin: 20px 0 10px;
   text-align: center;
 }
 h3 {
-  font-size: 25px;
+  text-align: center;
+  font-size: 2vw;
   color: #ffffff;
   font-weight: 100;
-  letter-spacing: 1px;
   margin-bottom: 40px;
-  text-align: center;
-  width: 52%;
+  width: 65%;
 }
 .carousel {
   position: relative;
-  width: 80%;
+  width: 90%;
+  max-width: 1200px;
   overflow: hidden;
   cursor: grab;
   height: 400px;
   padding-block: 30px;
-  margin-top: 80px;
+  margin-top: 40px;
 }
 .carousel:active {
   cursor: grabbing;
@@ -37,6 +37,7 @@ h3 {
 .carousel-inner {
   display: flex;
   transition: transform 0.5s ease-in-out;
+  user-select: none;
   -webkit-user-select: none;
 }
 .card {
@@ -73,7 +74,7 @@ h3 {
   font-size: 20px;
   color: #d4d4d4;
 }
-/* Adjust positions for first and second cards */
+/* Adjust positions for cards */
 .card:nth-child(1) {
   transform: translateY(-20px);
 }
@@ -89,9 +90,8 @@ h3 {
 .card:nth-child(5) {
   transform: translateY(-20px);
 }
-
-@media (max-width:1024px) {
-  h3{
+@media (max-width: 1024px) {
+  h3 {
     width: auto;
   }
 }

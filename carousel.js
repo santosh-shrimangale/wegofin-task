@@ -1,4 +1,4 @@
-"use strict"
+"use strict";
 let currentIndex = 0;
 let startX = 0;
 let isDragging = false;
@@ -24,6 +24,7 @@ function touchStart(event) {
   isDragging = true;
   startX = getPositionX(event);
   animationID = requestAnimationFrame(animation);
+  carouselInner.style.transition = 'none'; // Stop the transition during drag
 }
 
 function touchMove(event) {
@@ -46,6 +47,7 @@ function touchEnd() {
   }
 
   setPositionByIndex();
+  carouselInner.style.transition = 'transform 0.5s ease-in-out'; // Add transition back
 }
 
 function getPositionX(event) {
@@ -62,7 +64,7 @@ function setSliderPosition() {
 }
 
 function setPositionByIndex() {
-  currentTranslate = currentIndex * -carousel.offsetWidth / totalSlides;
+  currentTranslate = currentIndex * -carousel.offsetWidth / 3;
   prevTranslate = currentTranslate;
   setSliderPosition();
 }
