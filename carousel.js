@@ -51,6 +51,11 @@ function touchEnd() {
   carouselInner.style.transition = 'transform 0.5s ease-in-out';
 }
 
+function animation() {
+  setSliderPosition();
+  if (isDragging) requestAnimationFrame(animation);
+}
+
 function setPositionByIndex() {
   currentTranslate = currentIndex * -slideWidth;
   prevTranslate = currentTranslate;
