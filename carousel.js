@@ -1,4 +1,3 @@
-"use strict";
 let currentIndex = 0;
 let startX = 0;
 let isDragging = false;
@@ -21,17 +20,18 @@ carousel.addEventListener('touchmove', touchMove);
 carousel.addEventListener('touchend', touchEnd);
 
 function touchStart(event) {
+  const touch = event.type === 'touchstart' ? event.touches[0] : event;
   isDragging = true;
-  startX = getPositionX(event);
+  startX = touch.clientX;
   animationID = requestAnimationFrame(animation);
-  carouselInner.style.transition = 'none'; // Stop the transition during drag
+  carouselInner.style.transition = 'none';
 }
 
 function touchMove(event) {
-  if (isDragging) {
-    const currentPosition = getPositionX(event);
-    currentTranslate = prevTranslate + currentPosition - startX;
-  }
+  if (!isDragging) return;
+  const touch = event.type === 'touchmove' ? event.touches[0] : event;
+  const currentPosition = touch.clientX;
+  currentTranslate = prevTranslate + currentPosition - startX;
 }
 
 function touchEnd() {
@@ -47,26 +47,17 @@ function touchEnd() {
   }
 
   setPositionByIndex();
-  carouselInner.style.transition = 'transform 0.5s ease-in-out'; // Add transition back
-}
-
-function getPositionX(event) {
-  return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
-}
-
-function animation() {
-  setSliderPosition();
-  if (isDragging) requestAnimationFrame(animation);
-}
-
-function setSliderPosition() {
-  carouselInner.style.transform = `translateX(${currentTranslate}px)`;
+  carouselInner.style.transition = 'transform 0.5s ease-in-out';
 }
 
 function setPositionByIndex() {
   currentTranslate = currentIndex * -carousel.offsetWidth / 3;
   prevTranslate = currentTranslate;
   setSliderPosition();
+}
+
+function setSliderPosition() {
+  carouselInner.style.transform = `translateX(${currentTranslate}px)`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
